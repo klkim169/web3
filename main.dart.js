@@ -79156,7 +79156,7 @@ A.ahJ.prototype={
 $2(a,b){var s,r,q,p,o=null,n=b.b
 if(n>=900)s=3
 else s=n>=600?2:1
-r=s===1?4.4:3.1
+r=s===1?5.5:3.9
 q=this.b
 p=J.cv(q)
 return new A.r1(new A.abw(s,12,12,r),new A.abr(new A.ahI(this.a,q),p,!0,!0,!0,o),B.iZ,B.aC,!1,o,o,B.zv,!1,o,o,p,B.a8,o,o,B.a4,B.ar,o)},
