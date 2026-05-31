@@ -29,18 +29,29 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>flutter_application_1</title>
+  <title>US Stock Tracker</title>
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <!--
-    You can customize the "flutter_bootstrap.js" script.
-    This is useful to provide a custom configuration to the Flutter loader
-    or to give the user feedback during the initialization process.
-
-    For more details:
-    * https://docs.flutter.dev/platform-integration/web/initialization
-  -->
+  <script>
+    // 서비스 워커 캐싱 비활성화 — 배포 후 항상 최신 빌드를 로드한다.
+    if ('serviceWorker' in navigator) {
+      // 1) 기존에 등록된 서비스 워커 해제 (오래된 빌드 잔존 방지)
+      navigator.serviceWorker.getRegistrations().then(function (regs) {
+        regs.forEach(function (r) { r.unregister(); });
+      });
+      // 2) 캐시 스토리지 전체 삭제
+      if (window.caches && caches.keys) {
+        caches.keys().then(function (keys) {
+          keys.forEach(function (k) { caches.delete(k); });
+        });
+      }
+      // 3) Flutter 부트스트랩이 새 서비스 워커를 등록하지 못하도록 차단
+      navigator.serviceWorker.register = function () {
+        return Promise.reject('service worker disabled');
+      };
+    }
+  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
