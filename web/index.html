@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="flutter_application_1">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>US Stock Tracker</title>
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <script>
+    // 서비스 워커 캐싱 비활성화 — 배포 후 항상 최신 빌드를 로드한다.
+    if ('serviceWorker' in navigator) {
+      // 1) 기존에 등록된 서비스 워커 해제 (오래된 빌드 잔존 방지)
+      navigator.serviceWorker.getRegistrations().then(function (regs) {
+        regs.forEach(function (r) { r.unregister(); });
+      });
+      // 2) 캐시 스토리지 전체 삭제
+      if (window.caches && caches.keys) {
+        caches.keys().then(function (keys) {
+          keys.forEach(function (k) { caches.delete(k); });
+        });
+      }
+      // 3) Flutter 부트스트랩이 새 서비스 워커를 등록하지 못하도록 차단
+      navigator.serviceWorker.register = function () {
+        return Promise.reject('service worker disabled');
+      };
+    }
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
