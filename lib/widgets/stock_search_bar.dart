@@ -100,9 +100,12 @@ class _StockSearchBarState extends State<StockSearchBar> {
 
   OverlayEntry _buildOverlay() {
     return OverlayEntry(
-      builder: (_) {
+      builder: (ctx) {
+        // 드롭다운 폭: 화면이 좁으면 화면폭에 맞춰 축소 (모바일 대응)
+        final screenW = MediaQuery.of(ctx).size.width;
+        final dropdownW = screenW < 440 ? screenW - 16.0 : 420.0;
         return Positioned(
-          width: 420,
+          width: dropdownW,
           child: CompositedTransformFollower(
             link: _layerLink,
             showWhenUnlinked: false,

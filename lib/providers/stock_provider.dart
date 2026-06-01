@@ -4,10 +4,12 @@ import '../models/candle_data.dart';
 import '../models/stock_item.dart';
 import '../services/database_service.dart';
 import '../services/stock_api_service.dart';
+import '../services/cloud_sync_service.dart';
 
 class StockProvider extends ChangeNotifier {
   final _db = DatabaseService();
   final _api = StockApiService();
+  final _cloud = CloudSyncService();
 
   List<StockItem> _stocks = [];
   StockItem? _selectedStock;
@@ -25,10 +27,37 @@ class StockProvider extends ChangeNotifier {
   bool get isRefreshing => _isRefreshing;
 
   Future<void> init() async {
+    // 1) 로컬 캐시 먼저 표시 (오프라인/지연 대비)
     _stocks = await _db.loadWatchlist();
     notifyListeners();
+
+    // 2) 클라우드에서 공용 리스트 조회 → 성공 시 소스로 채택
+    final cloud = await _cloud.fetch();
+    if (cloud != null) {
+      _stocks = cloud;
+      await _db.saveAll(_stocks); // 로컬 캐시 동기화
+      notifyListeners();
+    } else if (_stocks.isNotEmpty) {
+      // 클라우드 실패 + 로컬에 데이터가 있으면 클라우드 초기 업로드 시도
+      _cloud.save(_stocks);
+    }
+
+    // 3) 현재가/차트 로드 + 타이머 시작
     if (_stocks.isNotEmpty) await _fetchAllData();
     _startAutoRefresh();
+  }
+
+  /// 클라우드 변경을 가져와 현재 리스트와 다르면 반영 (기기 간 동기화).
+  Future<void> _syncFromCloud() async {
+    final cloud = await _cloud.fetch();
+    if (cloud == null) return;
+    final cloudKey = cloud.map((s) => s.ticker).join(',');
+    final localKey = _stocks.map((s) => s.ticker).join(',');
+    if (cloudKey == localKey) return; // 변경 없음
+    _stocks = cloud;
+    await _db.saveAll(_stocks);
+    notifyListeners();
+    if (_stocks.isNotEmpty) await _fetchAllData();
   }
 
   Future<void> _fetchAllData() async {
@@ -68,7 +97,10 @@ class StockProvider extends ChangeNotifier {
 
   void _startAutoRefresh() {
     _refreshTimer?.cancel();
-    _refreshTimer = Timer.periodic(const Duration(minutes: 2), (_) => refreshPrices());
+    _refreshTimer = Timer.periodic(const Duration(minutes: 2), (_) async {
+      await _syncFromCloud(); // 다른 기기의 변경 반영
+      await refreshPrices(); // 현재가 갱신
+    });
   }
 
   Future<void> addStock(String ticker, String companyName) async {
@@ -82,6 +114,7 @@ class StockProvider extends ChangeNotifier {
     _stocks.add(stock);
     notifyListeners();
     await _db.addStock(stock);
+    _cloud.save(_stocks); // 클라우드 동기화
     await _loadStock(stock);
   }
 
@@ -94,6 +127,7 @@ class StockProvider extends ChangeNotifier {
     }
     notifyListeners();
     _db.saveAll(_stocks);
+    _cloud.save(_stocks); // 클라우드 동기화
   }
 
   Future<void> removeStock(String ticker) async {
@@ -103,6 +137,7 @@ class StockProvider extends ChangeNotifier {
       _detailChart = [];
     }
     await _db.removeStock(ticker);
+    _cloud.save(_stocks); // 클라우드 동기화
     notifyListeners();
   }
 

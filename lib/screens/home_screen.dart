@@ -92,46 +92,70 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF161B22),
         elevation: 0,
-        titleSpacing: 16,
-        // 왼쪽: 제목
-        title: const Text(
-          'US Stock Tracker',
-          style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
-        ),
-        // 오른쪽: 갱신 시각 + 검색창 (한 줄)
-        actions: [
-          Consumer<StockProvider>(
-            builder: (ctx, provider, child) {
-              return Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (provider.isRefreshing)
-                    const SizedBox(
-                      width: 13,
-                      height: 13,
-                      child: CircularProgressIndicator(
-                          strokeWidth: 1.5, color: Colors.white38),
-                    )
-                  else
-                    const Icon(Icons.autorenew,
-                        size: 15, color: Colors.white38),
-                  const SizedBox(width: 6),
-                  Text(
-                    provider.lastUpdatedAt != null
-                        ? '갱신: ${DateFormat('HH:mm').format(provider.lastUpdatedAt!)}'
-                        : '로딩 중...',
-                    style: const TextStyle(
-                        color: Colors.white38, fontSize: 12),
+        titleSpacing: 12,
+        automaticallyImplyLeading: false,
+        // 한 줄: (제목) + 갱신 표시 + 검색창 — 화면 폭에 따라 반응형
+        title: LayoutBuilder(
+          builder: (ctx, constraints) {
+            final w = constraints.maxWidth;
+            final showTitle = w >= 560; // 좁은 화면에선 제목 숨김
+            final showUpdatedText = w >= 420; // 더 좁으면 갱신 텍스트 숨김
+            return Row(
+              children: [
+                if (showTitle) ...[
+                  const Text(
+                    'US Stock Tracker',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16),
                   ),
+                  const SizedBox(width: 16),
                 ],
-              );
-            },
-          ),
-          const SizedBox(width: 14),
-          const SizedBox(width: 420, child: StockSearchBar()),
-          const SizedBox(width: 16),
-        ],
+                Consumer<StockProvider>(
+                  builder: (ctx, provider, child) {
+                    return Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (provider.isRefreshing)
+                          const SizedBox(
+                            width: 13,
+                            height: 13,
+                            child: CircularProgressIndicator(
+                                strokeWidth: 1.5, color: Colors.white38),
+                          )
+                        else
+                          const Icon(Icons.autorenew,
+                              size: 15, color: Colors.white38),
+                        if (showUpdatedText) ...[
+                          const SizedBox(width: 6),
+                          Text(
+                            provider.lastUpdatedAt != null
+                                ? '갱신: ${DateFormat('HH:mm').format(provider.lastUpdatedAt!)}'
+                                : '로딩 중...',
+                            style: const TextStyle(
+                                color: Colors.white38, fontSize: 12),
+                          ),
+                        ],
+                      ],
+                    );
+                  },
+                ),
+                const SizedBox(width: 12),
+                // 검색창: 남는 공간을 모두 차지 (최대 420)
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 420),
+                      child: const StockSearchBar(),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
       ),
       body: Column(
         children: [
@@ -151,7 +175,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 final w = constraints.maxWidth;
                                 final cols =
                                     w >= 900 ? 3 : (w >= 600 ? 2 : 1);
-                                final ratio = cols == 1 ? 5.5 : 3.9;
+                                // 1열(모바일)은 카드 폭이 넓으므로 비율을 낮춰
+                                // 콘텐츠(티커·회사명·현재가·등락률)가 잘리지 않게 함
+                                final ratio = cols == 1 ? 3.4 : 3.9;
                                 return GridView.builder(
                                   padding: const EdgeInsets.all(12),
                                   gridDelegate:
