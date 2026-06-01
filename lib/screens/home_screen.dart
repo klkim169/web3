@@ -114,30 +114,41 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
                 Consumer<StockProvider>(
                   builder: (ctx, provider, child) {
-                    return Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (provider.isRefreshing)
-                          const SizedBox(
-                            width: 13,
-                            height: 13,
-                            child: CircularProgressIndicator(
-                                strokeWidth: 1.5, color: Colors.white38),
-                          )
-                        else
-                          const Icon(Icons.autorenew,
-                              size: 15, color: Colors.white38),
-                        if (showUpdatedText) ...[
-                          const SizedBox(width: 6),
-                          Text(
-                            provider.lastUpdatedAt != null
-                                ? '갱신: ${DateFormat('HH:mm').format(provider.lastUpdatedAt!)}'
-                                : '로딩 중...',
-                            style: const TextStyle(
-                                color: Colors.white38, fontSize: 12),
-                          ),
-                        ],
-                      ],
+                    // 새로고침 버튼: 클릭 시 현재가 즉시 갱신
+                    return InkWell(
+                      borderRadius: BorderRadius.circular(6),
+                      onTap: provider.isRefreshing
+                          ? null
+                          : () => provider.refreshPrices(),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6, vertical: 6),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (provider.isRefreshing)
+                              const SizedBox(
+                                width: 15,
+                                height: 15,
+                                child: CircularProgressIndicator(
+                                    strokeWidth: 1.5, color: Colors.white54),
+                              )
+                            else
+                              const Icon(Icons.refresh,
+                                  size: 18, color: Colors.white70),
+                            if (showUpdatedText) ...[
+                              const SizedBox(width: 6),
+                              Text(
+                                provider.lastUpdatedAt != null
+                                    ? '갱신: ${DateFormat('HH:mm:ss').format(provider.lastUpdatedAt!)}'
+                                    : '로딩 중...',
+                                style: const TextStyle(
+                                    color: Colors.white54, fontSize: 12),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
                     );
                   },
                 ),

@@ -166,6 +166,8 @@ class StockApiService {
       final target = Uri.https(_host1, '/v8/finance/chart/$ticker', {
         'interval': '1d',
         'range': range,
+        // 캐시 우회: 매 요청을 고유 URL로 만들어 항상 최신 시세를 받는다.
+        '_': DateTime.now().millisecondsSinceEpoch.toString(),
       });
       final res = await http
           .get(_proxyUri(target), headers: _headers)
