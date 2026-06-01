@@ -20,11 +20,12 @@ class CloudSyncService {
     try {
       // kvdb는 GET을 장기 캐시(HIT)하므로 타임스탬프 쿼리로 캐시를 우회해
       // 항상 최신 값을 받는다. (캐시된 값이면 다른 기기 변경이 안 보임)
+      // 주의: 'Cache-Control' 요청 헤더는 CORS 프리플라이트를 유발하고
+      //       kvdb가 해당 헤더를 허용하지 않아 GET이 차단되므로 쓰지 않는다.
+      //       쿼리 파라미터만으로 캐시 우회가 충분하다.
       final url = '$_url?t=${DateTime.now().millisecondsSinceEpoch}';
-      final res = await http.get(
-        Uri.parse(url),
-        headers: const {'Cache-Control': 'no-cache'},
-      ).timeout(const Duration(seconds: 8));
+      final res =
+          await http.get(Uri.parse(url)).timeout(const Duration(seconds: 8));
       // 404 = 키가 아직 없음(인증 전/최초). 로컬을 덮어쓰지 않도록 null 반환.
       if (res.statusCode != 200) return null;
       if (res.body.trim().isEmpty) return [];
