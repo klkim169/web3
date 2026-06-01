@@ -186,9 +186,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 final w = constraints.maxWidth;
                                 final cols =
                                     w >= 900 ? 3 : (w >= 600 ? 2 : 1);
-                                // 1열(모바일)은 카드 폭이 넓으므로 비율을 낮춰
-                                // 콘텐츠(티커·회사명·현재가·등락률)가 잘리지 않게 함
-                                final ratio = cols == 1 ? 3.4 : 3.9;
+                                // 비율 대신 고정 높이(mainAxisExtent)를 사용해
+                                // 화면 폭과 무관하게 카드 콘텐츠(티커·회사명·
+                                // 현재가·등락률)가 항상 카드 안에 들어가게 한다.
                                 return GridView.builder(
                                   padding: const EdgeInsets.all(12),
                                   gridDelegate:
@@ -196,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     crossAxisCount: cols,
                                     crossAxisSpacing: 12,
                                     mainAxisSpacing: 12,
-                                    childAspectRatio: ratio,
+                                    mainAxisExtent: 122,
                                   ),
                                   itemCount: stocks.length,
                                   itemBuilder: (ctx, i) => StockCard(
