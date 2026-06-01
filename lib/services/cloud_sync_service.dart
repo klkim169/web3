@@ -18,9 +18,13 @@ class CloudSyncService {
   /// - 그 외/예외: null (실패 → 로컬 유지)
   Future<List<StockItem>?> fetch() async {
     try {
-      final res = await http
-          .get(Uri.parse(_url))
-          .timeout(const Duration(seconds: 8));
+      // kvdb는 GET을 장기 캐시(HIT)하므로 타임스탬프 쿼리로 캐시를 우회해
+      // 항상 최신 값을 받는다. (캐시된 값이면 다른 기기 변경이 안 보임)
+      final url = '$_url?t=${DateTime.now().millisecondsSinceEpoch}';
+      final res = await http.get(
+        Uri.parse(url),
+        headers: const {'Cache-Control': 'no-cache'},
+      ).timeout(const Duration(seconds: 8));
       // 404 = 키가 아직 없음(인증 전/최초). 로컬을 덮어쓰지 않도록 null 반환.
       if (res.statusCode != 200) return null;
       if (res.body.trim().isEmpty) return [];
