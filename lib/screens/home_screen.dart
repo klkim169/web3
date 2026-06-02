@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -26,8 +28,29 @@ class _HomeScreenState extends State<HomeScreen> {
   GlobalKey _keyFor(String ticker) =>
       _cardKeys.putIfAbsent(ticker, GlobalKey.new);
 
+  // 다음 자동 갱신까지 남은 초 — "(45s)" 형태로 반환
+  String _remainingLabel(StockProvider provider) {
+    final next = provider.nextRefreshAt;
+    if (next == null) return '';
+    final secs = next.difference(DateTime.now()).inSeconds;
+    if (secs <= 0) return ' (곧 갱신)';
+    return ' ($secs초)';
+  }
+
+  // 남은 갱신 시간을 1초마다 다시 그리기 위한 타이머
+  Timer? _tick;
+
+  @override
+  void initState() {
+    super.initState();
+    _tick = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (mounted) setState(() {});
+    });
+  }
+
   @override
   void dispose() {
+    _tick?.cancel();
     _feedPos.dispose();
     _overlayEntry?.remove();
     super.dispose();
@@ -140,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               const SizedBox(width: 6),
                               Text(
                                 provider.lastUpdatedAt != null
-                                    ? '갱신: ${DateFormat('HH:mm:ss').format(provider.lastUpdatedAt!)}'
+                                    ? '갱신: ${DateFormat('HH:mm:ss').format(provider.lastUpdatedAt!)}${_remainingLabel(provider)}'
                                     : '로딩 중...',
                                 style: const TextStyle(
                                     color: Colors.white54, fontSize: 12),

@@ -16,14 +16,18 @@ class StockProvider extends ChangeNotifier {
   List<CandleData> _detailChart = [];
   String _selectedRange = '3mo';
   DateTime? _lastUpdatedAt;
+  DateTime? _nextRefreshAt;
   bool _isRefreshing = false;
   Timer? _refreshTimer;
+
+  static const Duration refreshInterval = Duration(minutes: 2);
 
   List<StockItem> get stocks => _stocks;
   StockItem? get selectedStock => _selectedStock;
   List<CandleData> get detailChart => _detailChart;
   String get selectedRange => _selectedRange;
   DateTime? get lastUpdatedAt => _lastUpdatedAt;
+  DateTime? get nextRefreshAt => _nextRefreshAt;
   bool get isRefreshing => _isRefreshing;
 
   Future<void> init() async {
@@ -97,9 +101,13 @@ class StockProvider extends ChangeNotifier {
 
   void _startAutoRefresh() {
     _refreshTimer?.cancel();
-    _refreshTimer = Timer.periodic(const Duration(minutes: 2), (_) async {
+    _nextRefreshAt = DateTime.now().add(refreshInterval);
+    notifyListeners();
+    _refreshTimer = Timer.periodic(refreshInterval, (_) async {
       await _syncFromCloud(); // 다른 기기의 변경 반영
       await refreshPrices(); // 현재가 갱신
+      _nextRefreshAt = DateTime.now().add(refreshInterval);
+      notifyListeners();
     });
   }
 
