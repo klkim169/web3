@@ -262,8 +262,9 @@ class StockApiService {
     final result = await _fetchChart(ticker, '1mo');
     if (result == null) return [];
     final candles = _parseCandles(result);
-    return candles.length > 15
-        ? candles.sublist(candles.length - 15)
+    // 4주간(약 20 거래일)의 일봉만 표시
+    return candles.length > 20
+        ? candles.sublist(candles.length - 20)
         : candles;
   }
 
