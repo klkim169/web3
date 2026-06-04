@@ -17,16 +17,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int? _dragFrom;
-  int? _dragTo;
-  final _feedPos = ValueNotifier<Offset>(Offset.zero);
-  OverlayEntry? _overlayEntry;
-
-  // ticker → GlobalKey (stable even after reorder)
-  final _cardKeys = <String, GlobalKey>{};
-
-  GlobalKey _keyFor(String ticker) =>
-      _cardKeys.putIfAbsent(ticker, GlobalKey.new);
 
   // 다음 자동 갱신까지 남은 초 — "(45s)" 형태로 반환
   String _remainingLabel(StockProvider provider) {
@@ -51,61 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     _tick?.cancel();
-    _feedPos.dispose();
-    _overlayEntry?.remove();
     super.dispose();
-  }
-
-  void _onDragStart(int index, Offset globalPos, StockItem stock) {
-    setState(() {
-      _dragFrom = index;
-    });
-    _feedPos.value = globalPos;
-    _overlayEntry = OverlayEntry(
-      builder: (_) => ValueListenableBuilder<Offset>(
-        valueListenable: _feedPos,
-        builder: (_, pos, _) => Positioned(
-          left: pos.dx - 90,
-          top: pos.dy - 25,
-          child: IgnorePointer(child: _DragFeedback(stock: stock)),
-        ),
-      ),
-    );
-    Overlay.of(context).insert(_overlayEntry!);
-  }
-
-  void _onDragUpdate(Offset globalPos) {
-    _feedPos.value = globalPos;
-
-    final stocks = context.read<StockProvider>().stocks;
-    int? newTo;
-    for (int i = 0; i < stocks.length; i++) {
-      if (i == _dragFrom) continue;
-      final box = _cardKeys[stocks[i].ticker]
-          ?.currentContext
-          ?.findRenderObject() as RenderBox?;
-      if (box == null) continue;
-      final rect = box.localToGlobal(Offset.zero) & box.size;
-      if (rect.contains(globalPos)) {
-        newTo = i;
-        break;
-      }
-    }
-    if (newTo != _dragTo) setState(() => _dragTo = newTo);
-  }
-
-  void _onDragEnd() {
-    _overlayEntry?.remove();
-    _overlayEntry = null;
-    final from = _dragFrom;
-    final to = _dragTo;
-    setState(() {
-      _dragFrom = null;
-      _dragTo = null;
-    });
-    if (from != null && to != null && from != to) {
-      context.read<StockProvider>().reorderStock(from, to);
-    }
   }
 
   @override
@@ -222,18 +158,36 @@ class _HomeScreenState extends State<HomeScreen> {
                                     mainAxisExtent: 122,
                                   ),
                                   itemCount: stocks.length,
-                                  itemBuilder: (ctx, i) => StockCard(
-                                    key: _keyFor(stocks[i].ticker),
-                                    stock: stocks[i],
-                                    index: i,
-                                    isDragOver: _dragTo == i &&
-                                        _dragFrom != i,
-                                    isDragging: _dragFrom == i,
-                                    onDragStart: (pos) =>
-                                        _onDragStart(i, pos, stocks[i]),
-                                    onDragUpdate: _onDragUpdate,
-                                    onDragEnd: _onDragEnd,
-                                  ),
+                                  itemBuilder: (ctx, i) {
+                                    final stock = stocks[i];
+                                    return DragTarget<int>(
+                                      onWillAcceptWithDetails: (d) =>
+                                          d.data != i,
+                                      onAcceptWithDetails: (d) => provider
+                                          .reorderStock(d.data, i),
+                                      builder:
+                                          (ctx, candidate, rejected) {
+                                        final isOver = candidate.isNotEmpty;
+                                        return LongPressDraggable<int>(
+                                          data: i,
+                                          // 끌리는 동안 손가락 위에 표시되는 미리보기
+                                          feedback: _DragFeedback(
+                                              stock: stock),
+                                          // 원래 자리에는 흐릿한 카드를 남김
+                                          childWhenDragging: StockCard(
+                                            stock: stock,
+                                            isDragOver: false,
+                                            isDragging: true,
+                                          ),
+                                          child: StockCard(
+                                            stock: stock,
+                                            isDragOver: isOver,
+                                            isDragging: false,
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
                                 );
                               },
                             ),

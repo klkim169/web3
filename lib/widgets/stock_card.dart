@@ -7,22 +7,14 @@ import 'mini_candle_chart.dart';
 
 class StockCard extends StatelessWidget {
   final StockItem stock;
-  final int index;
   final bool isDragOver;
   final bool isDragging;
-  final void Function(Offset globalPos) onDragStart;
-  final void Function(Offset globalPos) onDragUpdate;
-  final VoidCallback onDragEnd;
 
   const StockCard({
     super.key,
     required this.stock,
-    required this.index,
     required this.isDragOver,
     required this.isDragging,
-    required this.onDragStart,
-    required this.onDragUpdate,
-    required this.onDragEnd,
   });
 
   @override
@@ -63,12 +55,6 @@ class StockCard extends StatelessWidget {
               child: GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: () => provider.selectStock(stock),
-                // 길게 눌러 잡은 뒤 드래그 → 순서 이동.
-                // (즉시 패닝은 모바일에서 GridView 스크롤에 가로채여
-                //  드래그가 시작되지 않으므로 롱프레스로 처리한다.)
-                onLongPressStart: (d) => onDragStart(d.globalPosition),
-                onLongPressMoveUpdate: (d) => onDragUpdate(d.globalPosition),
-                onLongPressEnd: (_) => onDragEnd(),
                 child: MouseRegion(
                   cursor: SystemMouseCursors.grab,
                   child: Column(
