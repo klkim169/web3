@@ -56,11 +56,11 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  void _onPanStart(int index, DragStartDetails d, StockItem stock) {
+  void _onDragStart(int index, Offset globalPos, StockItem stock) {
     setState(() {
       _dragFrom = index;
     });
-    _feedPos.value = d.globalPosition;
+    _feedPos.value = globalPos;
     _overlayEntry = OverlayEntry(
       builder: (_) => ValueListenableBuilder<Offset>(
         valueListenable: _feedPos,
@@ -74,8 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
     Overlay.of(context).insert(_overlayEntry!);
   }
 
-  void _onPanUpdate(DragUpdateDetails d) {
-    _feedPos.value = d.globalPosition;
+  void _onDragUpdate(Offset globalPos) {
+    _feedPos.value = globalPos;
 
     final stocks = context.read<StockProvider>().stocks;
     int? newTo;
@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ?.findRenderObject() as RenderBox?;
       if (box == null) continue;
       final rect = box.localToGlobal(Offset.zero) & box.size;
-      if (rect.contains(d.globalPosition)) {
+      if (rect.contains(globalPos)) {
         newTo = i;
         break;
       }
@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (newTo != _dragTo) setState(() => _dragTo = newTo);
   }
 
-  void _onPanEnd(DragEndDetails d) {
+  void _onDragEnd() {
     _overlayEntry?.remove();
     _overlayEntry = null;
     final from = _dragFrom;
@@ -229,10 +229,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     isDragOver: _dragTo == i &&
                                         _dragFrom != i,
                                     isDragging: _dragFrom == i,
-                                    onPanStart: (d) =>
-                                        _onPanStart(i, d, stocks[i]),
-                                    onPanUpdate: _onPanUpdate,
-                                    onPanEnd: _onPanEnd,
+                                    onDragStart: (pos) =>
+                                        _onDragStart(i, pos, stocks[i]),
+                                    onDragUpdate: _onDragUpdate,
+                                    onDragEnd: _onDragEnd,
                                   ),
                                 );
                               },
