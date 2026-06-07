@@ -83400,7 +83400,7 @@ s.jG()
 return s},
 $S:505}
 A.NR.prototype={
-I(a){return new A.zy(B.GL,"US Stock Tracker",A.uz(B.ae,null,null).akb(B.DG,B.je),!1,null)}}
+I(a){return new A.zy(B.GL,"Stock",A.uz(B.ae,null,null).akb(B.DG,B.je),!1,null)}}
 A.o3.prototype={}
 A.dS.prototype={
 gakO(){var s=this.r
@@ -83770,7 +83770,7 @@ $0(){},
 $S:0}
 A.alN.prototype={
 $2(a,b){var s=null,r=b.b,q=t.p,p=A.b([],q)
-if(r>=560)B.b.N(p,A.b([B.VA,B.QI],q))
+if(r>=560)B.b.N(p,A.b([B.VJ,B.QI],q))
 p.push(A.a_p(new A.alM(this.a,r>=420),t.Mh))
 p.push(B.zl)
 p.push(A.fA(new A.fX(B.mb,s,s,new A.dN(B.By,B.R7,s),s),1))
@@ -84564,8 +84564,8 @@ k=A.b([s,B.lw,r,B.lw,q,B.lw,p.wH("\uc77c\uac04 \ubcc0\ub3d9\ub960 (%)",k,"0.00",
 s=p.z
 if(s!=null)B.b.N(k,A.b([B.fe,A.cS(A.b([B.H0,B.lv,A.bw(s,o,o,o,B.V_,o,o)],m),B.K,B.v,B.O)],m))
 k=A.dx(k,B.K,B.v,B.O)
-s=A.b([A.C9(B.VB,new A.alk(a),A.afu(o,o,o,o,o,o,o,o,o,B.cp,o,o,o,o,o,o,o,o,o,o)),B.fd],m)
-if(p.a.c!=null)B.b.N(s,A.b([A.C9(B.VG,p.ga5w(),A.afu(o,o,o,o,o,o,o,o,o,B.b9,o,o,o,o,o,o,o,o,o,o)),B.fd],m))
+s=A.b([A.C9(B.VA,new A.alk(a),A.afu(o,o,o,o,o,o,o,o,o,B.cp,o,o,o,o,o,o,o,o,o,o)),B.fd],m)
+if(p.a.c!=null)B.b.N(s,A.b([A.C9(B.VF,p.ga5w(),A.afu(o,o,o,o,o,o,o,o,o,B.b9,o,o,o,o,o,o,o,o,o,o)),B.fd],m))
 s.push(A.ayK(B.VL,p.gaeQ(),A.ayL(o,o,B.el,o,o,o,0,o,o,B.k,o,o,o,o,o,o,o,o,o,o)))
 return A.ayt(o,B.fM,new A.dN(B.Bx,A.dx(A.b([l,new A.bX(B.jE,k,o),A.d_(o,A.cS(s,B.K,B.dA,B.O),B.p,o,B.BB,o,o,o,B.Gb,o,o,o)],m),B.cs,B.v,B.aw),o),o,o,o,o,B.Pn,o,new A.d4(n,B.iY),o)},
 Di(a,b,c,d,e){var s=null,r=A.bw(a.toUpperCase(),s,s,s,B.A_,s,s),q=d?B.RK:B.zN,p=e?B.Rq:B.zG,o=e?A.b([new A.Wr()],t.VS):s
@@ -84651,7 +84651,7 @@ if(m.length===0)s.push(B.N7)
 else s.push(A.zh(new A.aln(this,m,b)))
 return this.PI(A.dx(s,B.ap,B.v,B.O))},
 aaN(a,b,c,d,e){var s,r=this,q=null,p=A.dc(10),o=A.re(B.cq,1),n=J.b9(a),m=t.p
-n=A.d_(q,new A.OU(B.An,8,B.Ao,A.b([A.cS(A.b([B.VI,B.lt,A.bw(r.d==="all"?""+n.gD(a)+"\uac1c \uc885\ubaa9":""+b.length+"/"+n.gD(a)+"\uac1c",q,q,q,B.lI,q,q)],m),B.K,B.v,B.aw),A.cS(A.b([r.Dk("\uc804\uccb4","all"),r.Dk("\uc218\uc775","gain"),r.Dk("\uc190\uc2e4","loss"),B.fd,A.ayK(B.VN,new A.alt(r),A.ayL(q,q,B.el,q,q,q,0,q,q,B.k,q,q,B.nv,q,q,q,q,q,B.UU,q))],m),B.K,B.v,B.aw)],m),q),B.p,q,B.e6,q,q,q,B.G4,q,q,q)
+n=A.d_(q,new A.OU(B.An,8,B.Ao,A.b([A.cS(A.b([B.VH,B.lt,A.bw(r.d==="all"?""+n.gD(a)+"\uac1c \uc885\ubaa9":""+b.length+"/"+n.gD(a)+"\uac1c",q,q,q,B.lI,q,q)],m),B.K,B.v,B.aw),A.cS(A.b([r.Dk("\uc804\uccb4","all"),r.Dk("\uc218\uc775","gain"),r.Dk("\uc190\uc2e4","loss"),B.fd,A.ayK(B.VN,new A.alt(r),A.ayL(q,q,B.el,q,q,q,0,q,q,B.k,q,q,B.nv,q,q,q,q,q,B.UU,q))],m),B.K,B.v,B.aw)],m),q),B.p,q,B.e6,q,q,q,B.G4,q,q,q)
 s=A.b([r.agb()],m)
 if(b.length===0)s.push(A.d_(B.a_,B.VM,B.p,q,q,q,q,q,B.G0,q,q,q))
 else B.b.N(s,new A.a7(b,new A.alu(r,c),A.W(b).h("a7<1,e>")))
@@ -84805,7 +84805,7 @@ $3$color(a,b,c){return this.$4$color$right(a,b,c,!1)},
 $S:546}
 A.alq.prototype={
 $1(a){var s=null,r=this.a
-return new A.r7(A.bw(r.b+" \uc0ad\uc81c",s,s,s,B.UC,s,s),A.bw(r.c+"\n\uc815\ub9d0 \uc0ad\uc81c\ud558\uc2dc\uaca0\uc2b5\ub2c8\uae4c?",s,s,s,B.zT,s,s),A.b([A.C9(B.VH,new A.alo(a),s),A.C9(B.VF,new A.alp(a),s)],t.p),B.fM,s)},
+return new A.r7(A.bw(r.b+" \uc0ad\uc81c",s,s,s,B.UC,s,s),A.bw(r.c+"\n\uc815\ub9d0 \uc0ad\uc81c\ud558\uc2dc\uaca0\uc2b5\ub2c8\uae4c?",s,s,s,B.zT,s,s),A.b([A.C9(B.VG,new A.alo(a),s),A.C9(B.VE,new A.alp(a),s)],t.p),B.fM,s)},
 $S:547}
 A.alo.prototype={
 $0(){A.hd(this.a,!1).vb(!1)
@@ -85019,7 +85019,7 @@ al(){return new A.Uo()}}
 A.Uo.prototype={
 I(a){var s=this,r=null,q=s.a.f,p=s.d?A.ay(20,B.bC.C()>>>16&255,B.bC.C()>>>8&255,B.bC.C()&255):B.D,o=A.ay(30,B.bC.C()>>>16&255,B.bC.C()>>>8&255,B.bC.C()&255),n=A.dc(4),m=s.a
 m=A.b([A.d_(r,A.bw(m.c,r,r,r,B.UJ,r,r),B.p,r,new A.c1(o,r,r,n,r,r,B.U),r,r,r,B.Go,r,r,r),B.lt,A.fA(A.bw(m.d,r,B.ad,r,B.TD,r,r),1)],t.p)
-if(s.a.e)m.push(B.VJ)
+if(s.a.e)m.push(B.VI)
 return A.fG(A.jh(B.al,A.atQ(A.cS(m,B.K,B.v,B.O),p,r,B.FO,B.nu),B.a7,!1,r,r,r,r,r,r,r,r,r,r,r,r,r,q,r,r,r),B.lB,r,new A.ap6(s),new A.ap7(s),r)}}
 A.ap6.prototype={
 $1(a){var s=this.a
@@ -90706,11 +90706,11 @@ B.GU=new A.eJ(58783,"MaterialIcons",!0)
 B.GZ=new A.fd(B.GU,48,B.dm,null,null)
 B.fe=new A.co(null,12,null,null)
 B.Ty=new A.p(!0,B.cr,null,null,null,null,15,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.VC=new A.dt("\uc0c1\ub2e8 \uac80\uc0c9\ucc3d\uc5d0\uc11c \uc885\ubaa9\uc744 \ucd94\uac00\ud558\uc138\uc694",null,B.Ty,null,null,null,null,null,null)
+B.VB=new A.dt("\uc0c1\ub2e8 \uac80\uc0c9\ucc3d\uc5d0\uc11c \uc885\ubaa9\uc744 \ucd94\uac00\ud558\uc138\uc694",null,B.Ty,null,null,null,null,null,null)
 B.ib=new A.co(null,4,null,null)
 B.SQ=new A.p(!0,B.eo,null,null,null,null,13,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.VO=new A.dt("\uc608: AAPL, MSFT, TSLA",null,B.SQ,null,null,null,null,null,null)
-B.Ik=s([B.GZ,B.fe,B.VC,B.ib,B.VO],t.p)
+B.Ik=s([B.GZ,B.fe,B.VB,B.ib,B.VO],t.p)
 B.EP=new A.og(B.as,B.v,B.aw,B.K,null,B.cj,null,0,B.Ik,null)
 B.Dx=new A.hx(B.a_,null,null,B.EP,null)
 B.Dy=new A.xe(null,null,null,null,null,null,null,null,null)
@@ -91333,10 +91333,10 @@ B.on=s([B.XC,B.XH,B.XF,B.XG,B.XE,B.XD],A.ao("A<lm>"))
 B.oo=s([0,21,51,121,151,191,271,321,360],t.n)
 B.IR=s(["Q1","Q2","Q3","Q4"],t.s)
 B.zU=new A.p(!0,B.k,null,null,null,null,13,B.cQ,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.VE=new A.dt("\uc99d\uad8c\uc0ac\ubcc4 \ubcf4\uc720 \ud604\ud669 (By Broker)",null,B.zU,null,null,null,null,null,null)
+B.VD=new A.dt("\uc99d\uad8c\uc0ac\ubcc4 \ubcf4\uc720 \ud604\ud669 (By Broker)",null,B.zU,null,null,null,null,null,null)
 B.lI=new A.p(!0,B.b0,null,null,null,null,11,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.Vz=new A.dt("\uacc4\uc88c\ubcc4 \ubd84\uc0b0 \ud604\ud669",null,B.lI,null,null,null,null,null,null)
-B.IT=s([B.VE,B.Vz],t.p)
+B.IT=s([B.VD,B.Vz],t.p)
 B.B6=new A.I6(2,"outer")
 B.n0=new A.v(0.09803921568627451,0,0,0,B.e)
 B.h=new A.h(0,0)
@@ -92509,8 +92509,8 @@ B.QL=new A.co(14,14,B.DB,null)
 B.N6=new A.bX(B.G1,B.QL,null)
 B.FZ=new A.ap(0,12,0,12)
 B.zZ=new A.p(!0,B.b0,null,null,null,null,13,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.VD=new A.dt("\uc99d\uad8c\uc0ac \ub370\uc774\ud130 \uc5c6\uc74c",null,B.zZ,null,null,null,null,null,null)
-B.Dv=new A.hx(B.a_,null,null,B.VD,null)
+B.VC=new A.dt("\uc99d\uad8c\uc0ac \ub370\uc774\ud130 \uc5c6\uc74c",null,B.zZ,null,null,null,null,null,null)
+B.Dv=new A.hx(B.a_,null,null,B.VC,null)
 B.N7=new A.bX(B.FZ,B.Dv,null)
 B.Gg=new A.ap(4,0,0,0)
 B.jl=new A.v(0.30196078431372547,1,1,1,B.e)
@@ -93183,15 +93183,15 @@ B.Uj=new A.p(!0,B.P,null,".AppleSystemUIFont",null,null,null,null,null,null,null
 B.UD=new A.p(!0,B.l,null,".AppleSystemUIFont",null,null,null,null,null,null,null,null,null,null,null,null,null,B.f,null,null,null,"blackRedwoodCity labelMedium",null,null,null,null)
 B.S4=new A.p(!0,B.l,null,".AppleSystemUIFont",null,null,null,null,null,null,null,null,null,null,null,null,null,B.f,null,null,null,"blackRedwoodCity labelSmall",null,null,null,null)
 B.Vy=new A.ew(B.TE,B.SJ,B.TF,B.U3,B.Sq,B.Sx,B.T1,B.TZ,B.Tb,B.Um,B.RY,B.Sd,B.Uj,B.UD,B.S4)
-B.VA=new A.dt("US Stock Tracker",null,B.zR,null,null,null,null,null,null)
-B.VB=new A.dt("\ucde8\uc18c",null,null,null,null,null,null,null,null)
+B.VA=new A.dt("\ucde8\uc18c",null,null,null,null,null,null,null,null)
 B.Ur=new A.p(!0,B.b9,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.VF=new A.dt("\uc0ad\uc81c",null,B.Ur,null,null,null,null,null,null)
-B.VG=new A.dt("\uc0ad\uc81c",null,null,null,null,null,null,null,null)
-B.VH=new A.dt("\ucde8\uc18c",null,B.zT,null,null,null,null,null,null)
-B.VI=new A.dt("\ubcf4\uc720 \uc885\ubaa9 (Holdings)",null,B.zU,null,null,null,null,null,null)
+B.VE=new A.dt("\uc0ad\uc81c",null,B.Ur,null,null,null,null,null,null)
+B.VF=new A.dt("\uc0ad\uc81c",null,null,null,null,null,null,null,null)
+B.VG=new A.dt("\ucde8\uc18c",null,B.zT,null,null,null,null,null,null)
+B.VH=new A.dt("\ubcf4\uc720 \uc885\ubaa9 (Holdings)",null,B.zU,null,null,null,null,null,null)
 B.UF=new A.p(!0,B.eo,null,null,null,null,11,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.VJ=new A.dt("Enter",null,B.UF,null,null,null,null,null,null)
+B.VI=new A.dt("Enter",null,B.UF,null,null,null,null,null,null)
+B.VJ=new A.dt("Stock",null,B.zR,null,null,null,null,null,null)
 B.VL=new A.dt("\uc800\uc7a5",null,null,null,null,null,null,null,null)
 B.VM=new A.dt("\ubcf4\uc720 \uc885\ubaa9\uc774 \uc5c6\uc2b5\ub2c8\ub2e4. \uc6b0\uce21 \uc0c1\ub2e8 \uff0b \ubcf4\uc720 \ucd94\uac00 \ubc84\ud2bc\uc73c\ub85c \ub4f1\ub85d\ud558\uc138\uc694.",null,B.zZ,null,null,null,null,null,null)
 B.VN=new A.dt("\uff0b \ubcf4\uc720 \ucd94\uac00",null,null,null,null,null,null,null,null)
