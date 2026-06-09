@@ -87100,7 +87100,7 @@ if(s<=0)return" (\uace7 \uac31\uc2e0)"
 return" ("+s+"\ucd08)"},
 gq9(){var s=this.d
 if(s===$){this.a.toString
-s=this.d="watchlist"}return s},
+s=this.d="holdings"}return s},
 aC(){this.aO()
 this.e=A.ahk(B.hd,new A.ano(this))},
 l(){var s=this.e
@@ -87126,14 +87126,14 @@ $3(a,b,c){var s,r,q,p,o,n,m,l=null,k=t.p,j=A.b([],k)
 if(this.b)B.b.N(j,A.b([B.XA,B.lQ],k))
 s=this.a
 s.a.toString
-r=J.cB(b.d)
+r=J.cB(b.e)
 q=s.gq9()
-p=J.cB(b.e)
+p=J.cB(b.d)
 o=s.gq9()
 n=b.r
 m=n.a?1:0
 n=n.d?1:0
-B.b.N(j,A.b([new A.wu("\uad00\uc2ec\uc885\ubaa9",r,q==="watchlist",new A.anh(s),l),B.lQ,new A.wu("\ubcf4\uc720\uc885\ubaa9",p,o==="holdings",new A.ani(s),l),B.lQ,new A.wu("\uc54c\ub9bc",m+n,s.gq9()==="alerts",new A.anj(s),l)],k))
+B.b.N(j,A.b([new A.wu("\ubcf4\uc720\uc885\ubaa9",r,q==="holdings",new A.anh(s),l),B.lQ,new A.wu("\uad00\uc2ec\uc885\ubaa9",p,o==="watchlist",new A.ani(s),l),B.lQ,new A.wu("\uc54c\ub9bc",m+n,s.gq9()==="alerts",new A.anj(s),l)],k))
 j.push(B.fp)
 r=A.cx(6)
 q=b.at?l:new A.ank(b)
@@ -87152,14 +87152,14 @@ $0(){var s=this.a
 return s.a9(new A.ang(s))},
 $S:0}
 A.ang.prototype={
-$0(){return this.a.d="watchlist"},
+$0(){return this.a.d="holdings"},
 $S:0}
 A.ani.prototype={
 $0(){var s=this.a
 return s.a9(new A.anf(s))},
 $S:0}
 A.anf.prototype={
-$0(){return this.a.d="holdings"},
+$0(){return this.a.d="watchlist"},
 $S:0}
 A.anj.prototype={
 $0(){var s=this.a
